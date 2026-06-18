@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="urn:parameta:rrhh:employee"
+           targetNamespace="urn:parameta:rrhh:employee"
+           elementFormDefault="qualified">
+
+    <xs:element name="saveEmployeeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="employee" type="tns:EmployeeType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="saveEmployeeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="message" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="EmployeeType">
+        <xs:sequence>
+            <xs:element name="names" type="xs:string"/>
+            <xs:element name="lastNames" type="xs:string"/>
+            <xs:element name="typeDocument" type="xs:string"/>
+            <xs:element name="documentNumber" type="xs:string"/>
+            <xs:element name="dateOfBirth" type="xs:string"/>
+            <xs:element name="dateAffiliationCompany" type="xs:string"/>
+            <xs:element name="position" type="xs:string"/>
+            <xs:element name="salary" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
