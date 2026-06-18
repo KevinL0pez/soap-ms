@@ -17,6 +17,13 @@
 	<properties>
 		<java.version>21</java.version>
 		<jacoco.version>0.8.12</jacoco.version>
+		<sonar.maven.plugin.version>5.0.0.4389</sonar.maven.plugin.version>
+		<sonar.projectKey>parameta-soap-ms</sonar.projectKey>
+		<sonar.projectName>Parameta SOAP MS</sonar.projectName>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.java.source>21</sonar.java.source>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.exclusions>**/SoapMsApplication.java,**/config/**</sonar.exclusions>
 	</properties>
 
 	<dependencies>
@@ -100,6 +107,11 @@
 						<exclude>**/config/**</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar.maven.plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>
