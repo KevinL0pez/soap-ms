@@ -288,59 +288,38 @@ Respuesta esperada (campos principales):
 
 `employee-ms` protege el API REST con **OAuth2 Resource Server** y tokens **JWT** sin estado (stateless).
 
-### Modos de operación
-
-| Modo | Variable | Uso |
-|------|----------|-----|
-| **local** (default) | `JWT_MODE=local` | Docker, desarrollo, demo. Login en `POST /auth/login` |
-| **cognito** (AWS) | `JWT_MODE=cognito` + `SPRING_PROFILES_ACTIVE=aws` | Producción con Amazon Cognito |
-
 ### Variables JWT (`.env`)
 
 | Variable | Descripción |
 |----------|-------------|
-| `JWT_MODE` | `local` o `cognito` |
-| `JWT_SECRET` | Clave HMAC ≥ 32 caracteres (solo modo local) |
-| `JWT_ISSUER` | Emisor del token (local) |
+| `JWT_SECRET` | Clave HMAC ≥ 32 caracteres |
+| `JWT_ISSUER` | Emisor del token |
 | `JWT_EXPIRATION_MINUTES` | Vigencia del token |
-| `APP_USER` / `APP_PASSWORD` | Credenciales login local |
-| `JWT_ISSUER_URI` | URL issuer Cognito (modo AWS) |
+| `APP_USER` / `APP_PASSWORD` | Credenciales de `POST /auth/login` |
 | `CORS_ALLOWED_ORIGINS` | Orígenes permitidos para frontend |
 
-### Despliegue en AWS (recomendado)
+### Flujo de autenticación
 
-1. Crear **Amazon Cognito User Pool** con grupo `RRHH`.
-2. Configurar en ECS/EKS/Elastic Beanstalk:
-
-```env
-SPRING_PROFILES_ACTIVE=aws
-JWT_MODE=cognito
-JWT_ISSUER_URI=https://cognito-idp.<region>.amazonaws.com/<user-pool-id>
-SWAGGER_ENABLED=false
-```
-
-3. El cliente obtiene el token desde Cognito (Hosted UI, Amplify o client credentials).
-4. Enviar `Authorization: Bearer <token>` al API detrás de **ALB + HTTPS**.
-5. Guardar secretos en **AWS Secrets Manager** o **SSM Parameter Store** (no en la imagen Docker).
-6. Health check del target group: `GET /actuator/health`.
+1. `POST /auth/login` con `APP_USER` y `APP_PASSWORD` → token JWT.
+2. Enviar `Authorization: Bearer <token>` en `GET /employee/validate`.
 
 ### Rutas y roles
 
 | Ruta | Acceso |
 |------|--------|
-| `POST /auth/login` | Público (solo modo local) |
+| `POST /auth/login` | Público |
 | `GET /employee/**` | `ROLE_RRHH` |
-| `/actuator/health` | Público (probes AWS/ECS) |
-| `/swagger-ui/**` | Público en local; deshabilitado en AWS por defecto |
+| `/actuator/health` | Público (healthchecks Docker) |
+| `/swagger-ui/**` | Público |
 
 ### Buenas prácticas aplicadas
 
 - Sesión stateless (sin cookies de sesión)
-- BCrypt para contraseñas en modo local
+- BCrypt para contraseñas
 - Errores 401/403 en JSON estandarizado
 - CORS configurable por entorno
-- Soporte a grupos Cognito (`cognito:groups`) y claim `roles`
-- Actuator con probes para orquestadores cloud
+- Claim `roles` mapeado a `ROLE_RRHH`
+- Actuator con probes para orquestadores
 
 ---
 
