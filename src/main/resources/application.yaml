@@ -16,6 +16,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+  # It allows you to version and automatically execute changes to the database schema.
   flyway:
     enabled: true
     locations: classpath:db/migration

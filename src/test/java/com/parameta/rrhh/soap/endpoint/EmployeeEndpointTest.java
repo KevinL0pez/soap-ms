@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.parameta.rrhh.soap.entity.EmployeeEntity;
-import com.parameta.rrhh.soap.service.EmployeePersistenceService;
+import com.parameta.rrhh.soap.service.impl.EmployeePersistenceService;
 import com.parameta.rrhh.soap.soap.EmployeeType;
 import com.parameta.rrhh.soap.soap.SaveEmployeeRequest;
 import com.parameta.rrhh.soap.soap.SaveEmployeeResponse;

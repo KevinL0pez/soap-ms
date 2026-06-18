@@ -1,8 +1,9 @@
-package com.parameta.rrhh.soap.service;
+package com.parameta.rrhh.soap.service.impl;
 
 import com.parameta.rrhh.soap.entity.EmployeeEntity;
 import com.parameta.rrhh.soap.exception.DuplicateEmployeeException;
 import com.parameta.rrhh.soap.repository.EmployeeRepository;
+import com.parameta.rrhh.soap.service.IEmployeePersistenceService;
 import com.parameta.rrhh.soap.soap.EmployeeType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @RequiredArgsConstructor
-public class EmployeePersistenceService {
+public class EmployeePersistenceService implements IEmployeePersistenceService {
 
     private final EmployeeRepository employeeRepository;
 

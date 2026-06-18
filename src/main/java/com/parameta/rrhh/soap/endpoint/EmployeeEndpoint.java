@@ -1,11 +1,11 @@
 package com.parameta.rrhh.soap.endpoint;
 
 import com.parameta.rrhh.soap.entity.EmployeeEntity;
-import com.parameta.rrhh.soap.service.EmployeePersistenceService;
+import com.parameta.rrhh.soap.service.IEmployeePersistenceService;
+import com.parameta.rrhh.soap.service.impl.EmployeePersistenceService;
 import com.parameta.rrhh.soap.soap.EmployeeSoapConstants;
 import com.parameta.rrhh.soap.soap.SaveEmployeeRequest;
 import com.parameta.rrhh.soap.soap.SaveEmployeeResponse;
-import com.parameta.rrhh.soap.soap.EmployeeType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -19,12 +19,12 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @RequiredArgsConstructor
 public class EmployeeEndpoint {
 
-    private final EmployeePersistenceService employeePersistenceService;
+    private final IEmployeePersistenceService iEmployeePersistenceService;
 
     @PayloadRoot(namespace = EmployeeSoapConstants.NAMESPACE, localPart = "saveEmployeeRequest")
     @ResponsePayload
     public SaveEmployeeResponse saveEmployee(@RequestPayload SaveEmployeeRequest request) {
-        EmployeeEntity saved = employeePersistenceService.save(request.getEmployee());
+        EmployeeEntity saved = iEmployeePersistenceService.save(request.getEmployee());
         return new SaveEmployeeResponse(saved.getId(), "Employee successfully registered");
     }
 }

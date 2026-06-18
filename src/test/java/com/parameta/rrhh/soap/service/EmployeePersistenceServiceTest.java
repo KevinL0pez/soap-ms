@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import com.parameta.rrhh.soap.entity.EmployeeEntity;
 import com.parameta.rrhh.soap.exception.DuplicateEmployeeException;
 import com.parameta.rrhh.soap.repository.EmployeeRepository;
+import com.parameta.rrhh.soap.service.impl.EmployeePersistenceService;
 import com.parameta.rrhh.soap.soap.EmployeeType;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;

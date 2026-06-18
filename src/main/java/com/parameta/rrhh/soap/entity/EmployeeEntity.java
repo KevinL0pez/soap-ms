@@ -21,32 +21,33 @@ public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "names", nullable = false, length = 100)
     private String names;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "last_names", nullable = false, length = 100)
     private String lastNames;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "type_document", nullable = false, length = 20)
     private String typeDocument;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(name = "document_number", nullable = false, length = 50, unique = true)
     private String documentNumber;
 
-    @Column(nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @Column(name = "date_affiliation_company", nullable = false)
     private LocalDate dateAffiliationCompany;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "position", nullable = false, length = 100)
     private String position;
 
-    @Column(nullable = false, precision = 15, scale = 2)
+    @Column(name = "salary", nullable = false, precision = 15, scale = 2)
     private BigDecimal salary;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 }
