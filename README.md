@@ -409,3 +409,5 @@ soap-ms/
 | `repository` + `entity` | Acceso a MySQL (tabla `employee`) |
 | `config` | Publicación WSDL en `/ws/employees.wsdl` |
 | `db/migration` | Versionado de esquema con Flyway |
+
+---
